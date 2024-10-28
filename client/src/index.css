@@ -14,3 +14,11 @@ body {
 #root {
   width: 100%;
 }
+.expenses_page {
+  width: 50%;
+  padding: 2rem;
+}
+
+.budget {
+  display: flex;
+}

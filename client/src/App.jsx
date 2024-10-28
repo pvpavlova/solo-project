@@ -1,18 +1,19 @@
+import React, { useEffect, useState, useRef } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ProtectedRoute from './components/HOC/ProtectedRoute';
-import { useEffect, useState } from 'react';
 import axiosInstance, { setAccessToken } from './services/axiosInstance';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
+import ProtectedRoute from './components/HOC/ProtectedRoute';
 import SignupPage from './components/SignUpPage';
 import LoginPage from './components/LoginPage';
-import BudgetPage from './components/Budget/BudgetPage'
+import MainBudgetPage from './components/Budget/MainBudgetPage';
+import Calendar from './components/Calendar/Calendar'
 import Root from "./Root";
 
-function App() {
-  const [user, setUser] = useState();
-
-  useEffect(() => {
+export default function App() {
+  const [user, setUser] = useState(null);
+  const toast = useRef(null);
+ useEffect(() => {
     axiosInstance
       .get('/tokens/refresh')
       .then((res) => {
@@ -24,7 +25,7 @@ function App() {
       });
   }, []);
 
-  const signupHandler = async (e, formData) => {
+ const signupHandler = async (e, formData) => {
     e.preventDefault();
     const response = await axiosInstance.post('/auth/signup', formData);
     setUser(response.data.user);
@@ -37,40 +38,43 @@ function App() {
     setUser(response.data.user);
     setAccessToken(response.data.accessToken);
   };
-
+  
   const logoutHandler = async () => {
     await axiosInstance.get('/auth/logout');
     setUser(null);
     setAccessToken('');
   };
-
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Root user={user} logoutHandler={logoutHandler}/>,
-      children: [
-        {
-          element: <ProtectedRoute isAllowed={user !== null} />,
-          children: [
-             {
-          path: '/budget',
-          element: <BudgetPage  />,
-        },
-          ],
-        },
-        {
-          path: '/signup',
-          element: <SignupPage signupHandler={signupHandler} />,
-        },
-        {
-          path: '/login', 
-          element: <LoginPage />,
-        },
-      ],
-    },
-  ]);
+ const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root user={user} logoutHandler={logoutHandler} />,
+    children: [
+      {
+        path: '/login',
+        element: <LoginPage loginHandler={loginHandler} />,
+      },
+      {
+        path: '/signup',
+        element: <SignupPage signupHandler={signupHandler} />,
+      },
+      {
+        path: '/budget',
+        element: (
+          <ProtectedRoute isAllowed={user !== null}>
+            <MainBudgetPage user={user} />
+          </ProtectedRoute>
+        ),
+      }, {
+        path: '/calendar',
+        element: (
+          <ProtectedRoute isAllowed={user !== null}>
+            <Calendar user={user} />
+          </ProtectedRoute>
+        ),
+      },
+    ],
+  },
+]);
 
   return <RouterProvider router={router} />;
 }
-
-export default App;

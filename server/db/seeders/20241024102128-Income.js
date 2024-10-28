@@ -7,7 +7,23 @@ module.exports = {
       "Incomes",
       [
         {
-          category: "Еда",
+          category: "Премия",
+          value: 36000,
+          user_id: 1,
+          date: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          category: "Зарплата",
+          value: 76000,
+          user_id: 1,
+          date: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          category: "Кэшбек",
           value: 360,
           user_id: 1,
           date: new Date(),

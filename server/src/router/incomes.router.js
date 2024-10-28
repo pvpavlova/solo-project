@@ -21,7 +21,6 @@ router.get("/new", async (req, res) => {
     res.status(500).send("Ошибка создания одной записи:", error.message);
   }
 });
-
 router.post("/new", async (req, res) => {
   try {
     const { category, value, user_id, date } = req.body;

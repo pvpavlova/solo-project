@@ -47,7 +47,6 @@ router.get("/:id", checkId, async (req, res) => {
     res.status(500).send("Ошибка получения одной записи:", error.message);
   }
 });
-
 router.delete("/:id", checkId, async (req, res) => {
   try {
     const { id } = req.params;

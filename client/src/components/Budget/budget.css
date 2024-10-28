@@ -1,0 +1,29 @@
+.budget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin: 1rem;
+}
+
+.budget .content-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 100rem;
+}
+
+.budget .content-wrapper > .table-container,
+.budget .content-wrapper > .chart-container {
+  flex: 1;
+}
+
+.budget .content-wrapper .chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-container {
+  width: 50rem;
+}

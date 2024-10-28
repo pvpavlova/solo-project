@@ -1,16 +1,12 @@
 import axios from "axios";
-
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL, // http://localhost:3000/api
   withCredentials: true,
 });
-
 let accessToken = "";
-
 export function setAccessToken(newToken) {
   accessToken = newToken;
 }
-
 axiosInstance.interceptors.request.use((config) => {
   config.withCredentials = true;
   if (!config.headers.Authorization) {
@@ -18,5 +14,4 @@ axiosInstance.interceptors.request.use((config) => {
   }
   return config;
 });
-
 export default axiosInstance;

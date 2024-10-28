@@ -2,10 +2,10 @@ import React from 'react';
 import { Menubar } from 'primereact/menubar';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
+import './navbar.css'; // Добавьте стили в отдельный файл
 
-export default function NavBar( {user, logoutHandler} ) {
+export default function NavBar({ user, logoutHandler }) {
     const navigate = useNavigate();
-
     const items = [
         {
             label: 'Бухгалтерия',
@@ -15,38 +15,32 @@ export default function NavBar( {user, logoutHandler} ) {
             }
         },
         {
-            label: 'Платежи',
-            icon: 'pi pi-search',
-            command: () => {
-                navigate('/');
-            }
-        },
-        {
             label: 'Календарь',
-            icon: 'pi pi-envelope',
+            icon: 'pi pi-calendar',
             command: () => {
-                navigate('/');
+                navigate('/calendar');
             }
         }
     ];
 
-    const start = <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="50" className="mr-2" />;
+    const start = (
+        <img
+            height="50"
+            className="mr-2"
+        />
+    );
+
     const end = (
         <div className="flex align-items-center gap-2">
             {user ? (
                 <>
                     <Button
-                        label="Аккаунт"
-                        onClick={() => navigate('/account')}
-                        className="p-button"
-                    />
-                    <Button
                         label="Выйти"
-                        onClick={async () => { console.log('logoutHandler:', logoutHandler);
+                        onClick={async () => {
                             await logoutHandler();
                             navigate('/login');
                         }}
-                        className="p-button"
+                        className="logout-button"
                     />
                 </>
             ) : (
@@ -54,21 +48,19 @@ export default function NavBar( {user, logoutHandler} ) {
                     <Button
                         label="Войти"
                         onClick={() => navigate('/login')}
-                        className="p-button"
+                        className="login-button"
                     />
                     <Button
                         label="Зарегистрироваться"
                         onClick={() => navigate('/signup')}
-                        className="p-button"
+                        className="signup-button"
                     />
                 </>
             )}
-            
         </div>
     );
 
     return (
-            <Menubar model={items} start={start} end={end}  />
-
+        <Menubar model={items} start={start} end={end} className="navbar" />
     );
 }

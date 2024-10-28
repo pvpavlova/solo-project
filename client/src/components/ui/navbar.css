@@ -1,0 +1,25 @@
+.navbar {
+  background-color: #42a5f5; /* Светло-голубой фон */
+  border: none; /* Убираем границу */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+.user-greeting {
+  color: white; /* Белый текст для приветствия */
+  font-size: 1.1rem; /* Увеличиваем размер шрифта */
+}
+
+.logout-button,
+.login-button,
+.signup-button {
+  background-color: #ffa726; /* Оранжевая кнопка */
+  color: white; /* Белый текст на кнопках */
+  border-radius: 20px; /* Скругленные углы кнопок */
+  transition: background-color 0.3s ease; /* Плавный переход для фона */
+}
+
+.logout-button:hover,
+.login-button:hover,
+.signup-button:hover {
+  background-color: #ff9800; /* Темнее при наведении */
+}
